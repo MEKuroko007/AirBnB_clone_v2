@@ -20,42 +20,51 @@ def do_pack():
 
     return file_name
 
-
 def do_deploy(archive_path):
     """Distributes an archive to a web server.
+    Args:
+        archive_path (str): The path of the archive to distribute.
+    Returns:
+        If the file doesn't exist at archive_path or an error occurs - False.
+        Otherwise - True.
     """
-    if not os.path.isfile(archive_path):
+    if os.path.isfile(archive_path) is False:
         return False
+    file = archive_path.split("/")[-1]
+    name = file.split(".")[0]
 
-    file_name = os.path.basename(archive_path)
-    name = os.path.splitext(file_name)[0]
-
-    if put(archive_path, f"/tmp/{file_name}").failed:
+    if put(archive_path, "/tmp/{}".format(file)).failed is True:
         return False
-
-    commands = [
-        f"rm -rf /data/web_static/releases/{name}/",
-        f"mkdir -p /data/web_static/releases/{name}/",
-        f"tar -xzf /tmp/{file_name} -C /data/web_static/releases/{name}/",
-        f"rm /tmp/{file_name}",
-        f"mv /data/web_static/releases/{name}/web_static/* /data/web_static/releases/{name}/",
-        f"rm -rf /data/web_static/releases/{name}/web_static",
-        f"rm -rf /data/web_static/current",
-        f"ln -s /data/web_static/releases/{name}/ /data/web_static/current"
-    ]
-
-    for command in commands:
-        if run(command).failed:
-            return False
-
+    if run("rm -rf /data/web_static/releases/{}/".
+           format(name)).failed is True:
+        return False
+    if run("mkdir -p /data/web_static/releases/{}/".
+           format(name)).failed is True:
+        return False
+    if run("tar -xzf /tmp/{} -C /data/web_static/releases/{}/".
+           format(file, name)).failed is True:
+        return False
+    if run("rm /tmp/{}".format(file)).failed is True:
+        return False
+    if run("mv /data/web_static/releases/{}/web_static/* "
+           "/data/web_static/releases/{}/".format(name, name)).failed is True:
+        return False
+    if run("rm -rf /data/web_static/releases/{}/web_static".
+           format(name)).failed is True:
+        return False
+    if run("rm -rf /data/web_static/current").failed is True:
+        return False
+    if run("ln -s /data/web_static/releases/{}/ /data/web_static/current".
+           format(name)).failed is True:
+        return False
     return True
 
 
 def deploy():
-    """Create and distribute an archive to a web server."""
-    archive_path = do_pack()
-    
-    if archive_path is None:
+    """
+    Create and distribute an archive to a web server
+    """
+    file = do_pack()
+    if file is None:
         return False
-    
-    return do_deploy(archive_path)
+    return do_deploy(file)
