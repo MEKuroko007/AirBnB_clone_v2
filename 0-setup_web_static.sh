@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # install & configure nginx
 
-apt-get update
+apt-get update -y
 apt-get install -y nginx
 
 wb_path="/data/web_static"
@@ -23,7 +23,7 @@ server {
     index  index.html index.htm;
 
     location /hbnb_static {
-        alias $web_static_path/current;
+        alias $wb_path/current;
         index index.html index.htm;
     }
 
