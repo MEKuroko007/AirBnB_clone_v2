@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/3-header.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/3-footer.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/4-common.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/6-filters.css') }}" type="text/css">
+    <link rel="icon" href="{{ url_for('static', filename='images/icon.png') }}" type="image/png">
+    
+
+    <link rel="icon" href="{{ url_for('static', filename='images/icon.png') }}" type="image/png">
+    <title>HBNB</title>
+</head>
+<body>
+    <header>
+        <div class="logo"></div>
+    </header>
+    <section class="filters">
+        <div class="options">
+            <div class="popover">
+                <h3>States</h3>
+                <ul class="popover-content">
+                    {% for state in states %}
+                        <li><input type="checkbox" class="filter_checkbox" name="state" id="{{ state.id }}" checked>{{ state.name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="popover">
+                <h3>Cities</h3>
+                <ul class="popover-content">
+                    {% for city in cities %}
+                        <li><input type="checkbox" class="filter_checkbox" name="city" id="{{ city.id }}" checked>{{ city.name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="popover">
+                <h3>Amenities</h3>
+                <ul class="popover-content">
+                    {% for amenity in amenities %}
+                        <li><input type="checkbox" class="filter_checkbox" name="amenity" id="{{ amenity.id }}" checked>{{ amenity.name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </section>
+    <footer>
+        Holberton School
+    </footer>
+</body>
+</html>

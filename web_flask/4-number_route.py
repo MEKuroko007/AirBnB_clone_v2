@@ -36,7 +36,7 @@ def Python_text(text="is cool"):
 def OnlyNumber(n):
     """checks if n is an integer"""
     return f"{n} is a number"
- 
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)

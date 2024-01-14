@@ -36,7 +36,7 @@ def Python_text(text="is cool"):
 def OnlyNumber(n):
     """checks if n is an integer"""
     return f"{n} is a number"
- 
+
 
 @app.route("/number_template/<int:n>", strict_slashes=False)
 def number_template(n):

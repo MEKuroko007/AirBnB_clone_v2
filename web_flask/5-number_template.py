@@ -30,13 +30,13 @@ def Python_text(text="is cool"):
     """<text> dyanmic param with default value"""
     text = text.replace('_', ' ')
     return f"Python {text}"
- 
+
 
 @app.route("/number/<int:n>", strict_slashes=False)
 def OnlyNumber(n):
     """checks if n is an integer"""
     return f"{n} is a number"
- 
+
 
 @app.route("/number_template/<int:n>", strict_slashes=False)
 def number_template(n):
