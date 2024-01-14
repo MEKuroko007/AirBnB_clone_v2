@@ -19,11 +19,25 @@ def hbnb():
 
 
 @app.route("/c/<text>")
-def custom_text(text):
+def c_is_Fun(text):
     """<text> dyanmic param"""
     text = text.replace('_', ' ')
     return f"C {text}"
 
+
+@app.route("/python")
+@app.route("/python/<text>")
+def Python_text(text="is cool"):
+    """<text> dyanmic param with default value"""
+    text = text.replace('_', ' ')
+    return f"Python {text}"
+
+
+@app.route("/number/<int:n>")
+def OnlyNumber(n):
+    """checks if n is an integer"""
+    return f"{n} is a number"
+ 
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)

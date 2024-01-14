@@ -19,10 +19,18 @@ def hbnb():
 
 
 @app.route("/c/<text>")
-def custom_text(text):
+def c_is_Fun(text):
     """<text> dyanmic param"""
     text = text.replace('_', ' ')
     return f"C {text}"
+
+
+@app.route("/python")
+@app.route("/python/<text>")
+def Python_text(text="is cool"):
+    """<text> dyanmic param with default value"""
+    text = text.replace('_', ' ')
+    return f"Python {text}"
 
 
 if __name__ == "__main__":
