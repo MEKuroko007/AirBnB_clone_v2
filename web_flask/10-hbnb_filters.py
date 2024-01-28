@@ -6,7 +6,8 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 
-app = Flask(__name__, static_folder='../web_static', static_url_path='/web_static')
+app = Flask(__name__, static_folder='../web_static',
+            static_url_path='/web_static')
 
 app.url_map.strict_slashes = False
 
@@ -22,9 +23,11 @@ def hbnb_filters():
     """Displays a HTML page with HBNB filters"""
     states = sorted(storage.all(State).values(), key=lambda state: state.name)
     cities = sorted(storage.all(City).values(), key=lambda city: city.name)
-    amenities = sorted(storage.all(Amenity).values(), key=lambda amenity: amenity.name)
+    amenities = sorted(storage.all(Amenity).values(),
+                       key=lambda amenity: amenity.name)
 
-    return render_template('10-hbnb_filters.html', states=states, cities=cities, amenities=amenities)
+    return render_template('10-hbnb_filters.html',
+                           states=states, cities=cities, amenities=amenities)
 
 
 @app.teardown_appcontext

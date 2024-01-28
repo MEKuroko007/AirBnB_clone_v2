@@ -26,11 +26,12 @@ def states():
 def cities_by_state(id):
     """Displays a HTML page with the list of City objects linked to a State"""
     state = storage.get(State, id)
-    
+
     if state:
         cities = state.cities if hasattr(state, 'cities') else []
         sorted_cities = sorted(cities, key=lambda city: city.name)
-        return render_template('9-states.html', state=state, cities=sorted_cities)
+        return render_template('9-states.html',
+                               state=state, cities=sorted_cities)
 
     return render_template('9-states.html', not_found=True)
 
