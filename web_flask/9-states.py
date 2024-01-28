@@ -16,8 +16,6 @@ def before_request():
 @app.route("/states", strict_slashes=False)
 def states():
     """Displays an HTML page with a list of all States.
-
-    States are sorted by name.
     """
     states = storage.all("State")
     return render_template("9-states.html", state=states)
@@ -34,7 +32,7 @@ def states_id(id):
 
 @app.teardown_appcontext
 def teardown_appcontext(exception):
-    """Remove the current SQLAlchemy Session"""
+    """Remove Session of Sqlalchemy"""
     storage.close()
 
 
