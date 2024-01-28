@@ -13,27 +13,23 @@ def before_request():
     storage.reload()
 
 
-@app.route('/states', strict_slashes=False)
+@app.route("/states", strict_slashes=False)
 def states():
-    """Displays a HTML page with a list of all State objects"""
-    states = storage.all(State).values()
-    sorted_states = sorted(states, key=lambda state: state.name)
+    """Displays an HTML page with a list of all States.
 
-    return render_template('9-states.html', states=sorted_states)
+    States are sorted by name.
+    """
+    states = storage.all("State")
+    return render_template("9-states.html", state=states)
 
 
-@app.route('/states/<id>', strict_slashes=False)
-def cities_by_state(id):
-    """Displays a HTML page with the list of City objects linked to a State"""
-    state = storage.get(State, id)
-
-    if state:
-        cities = state.cities if hasattr(state, 'cities') else []
-        sorted_cities = sorted(cities, key=lambda city: city.name)
-        return render_template('9-states.html',
-                               state=state, cities=sorted_cities)
-
-    return render_template('9-states.html', not_found=True)
+@app.route("/states/<id>", strict_slashes=False)
+def states_id(id):
+    """Displays an HTML page with info about <id>, if it exists."""
+    for state in storage.all("State").values():
+        if state.id == id:
+            return render_template("9-states.html", state=state)
+    return render_template("9-states.html")
 
 
 @app.teardown_appcontext
