@@ -17,9 +17,8 @@ def before_request():
 @app.route('/cities_by_states', strict_slashes=False)
 def cities_by_states():
     """Displays a HTML page with a list of all State and City objects"""
-    states = storage.all(State).values()
-    sorted_states = sorted(states, key=lambda state: state.name)
-    return render_template('8-cities_by_states.html', states=sorted_states)
+    states = storage.all("State")
+    return render_template('8-cities_by_states.html', states=states)
 
 
 @app.teardown_appcontext

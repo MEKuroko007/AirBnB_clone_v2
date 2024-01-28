@@ -6,10 +6,10 @@ from models import storage
 app = Flask(__name__)
 
 
-# @app.before_request
-# def before_request():
-#     """Run before each request"""
-#     storage.reload()
+@app.before_request
+def before_request():
+    """Run before each request"""
+    storage.reload()
 
 
 @app.route("/states", strict_slashes=False)
@@ -31,7 +31,7 @@ def states_id(id):
 
 @app.teardown_appcontext
 def teardown_appcontext(exception):
-    """Remove Session of Sqlalchemy"""
+    """Remove Session of sqlAlchemy"""
     storage.close()
 
 
